@@ -1,0 +1,28 @@
+---
+title: "Regex.Rmd"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+
+#Import your measurements.csv file into an object called MData
+
+```{r}
+Mdata <-read.csv("Data1/measurements.csv")
+```
+
+#Use a dplyr command AND regular expressions to add a new column called Sp that modifies the Species names with only the first letter and period.
+```{r}
+Mdata<-Mdata%>%mutate(Sp = sub("(\\w)(\\w+)","\\1\\.", Species));Mdata 
+```
+
+#Use a dplyr command to create a new dataset BUT with Sp column instead of the Species column, moved to the beginning in place of the original Species column.
+
+```{r}
+MData.2<-select(Mdata,Sp,limb.width,unitsW,limb.length,unitsL)
+print(MData.2)
+```
+
+#Knit your Rmd file to a html format.
